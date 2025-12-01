@@ -1,0 +1,389 @@
+openapi: 3.0.0
+info:
+  title: Bramka acoGo!
+  version: 1.5.0
+
+paths:
+  # /api/ipio/input:
+  #   post:
+  #     summary: Odebranie stanu wejść modułu IPIO
+  #     description: Moduł IPIO wysyła pod ten webhook JSON informujący o zmianie stanu wejścia modułu. Dane te są następnie przetwarzane i wysyłane za pomocą MQTT.
+  #     tags:
+  #       - API
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             type: object
+  #             properties:
+  #               inNumber:
+  #                 type: integer
+  #                 description: Numer wejścia, którego stan uległ zmianie
+  #                 example: 1
+  #               state:
+  #                 type: boolean
+  #                 description: Stan wejścia
+  #                 example: true
+  #               devId:
+  #                 type: string
+  #                 description: Unikalny identyfikator urządzenia
+  #                 example: "AA:BB:CC:DD:EE"
+  #             required:
+  #               - inNumber
+  #               - state
+  #               - devId
+  #     responses:
+  #       '200':
+  #         description: OK
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: object
+  #               properties:
+  #                 status:
+  #                   type: string
+  #                   description: Status odpowiedzi
+  #                   example: OK
+  #                 info:
+  #                   type: string
+  #                   description: Informacja o odpowiedzi
+  #                   example: OK
+  #       '400':
+  #         description: Błąd. Nieprawidłowe dane wejściowe.
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: object
+  #               properties:
+  #                 status:
+  #                   type: string
+  #                   description: Status odpowiedzi
+  #                   example: error
+  #                 message:
+  #                   type: string
+  #                   description: Wiadomość o błędzie
+  #                   example: Nieprawidłowe dane wejściowe
+
+  /api/order/ezOpen:
+    get:
+      summary: Otwórz drzwi
+      description: Wykonuje operację otwarcia drzwi (`EZ Open`).
+      tags:
+        - API
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+          description: "Token <token-do-api>"
+      responses:
+        '200':
+          description: Success. Operacja została wykonana.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Status odpowiedzi
+                    example: OK
+                  info:
+                    type: string
+                    description: Informacja o wyniku operacji
+                    example: Door open
+        '400':
+          description: Error. wrong operation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Status odpowiedzi
+                    example: error
+                  message:
+                    type: string
+                    description: Wiadomość o błędzie
+                    example: Nieprawidłowa operacja
+
+  /api/order/f2Open:
+    get:
+      summary: Otwórz bramę
+      description: Wykonuje operację otwarcia bramy. Jeśli parametr `address` jest podany, wykonuje operację `F2 Open with address`.
+      tags:
+        - API
+      parameters:
+        - in: query
+          name: address
+          required: false
+          schema:
+            type: string
+          description: Opcjonalny adres urządzenia dla operacji `F2 Open with address`.
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+          description: "Token <token-do-api>"
+      responses:
+        '200':
+          description: Success. Operacja została wykonana.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Status odpowiedzi
+                    example: OK
+                  info:
+                    type: string
+                    description: Informacja o wyniku operacji
+                    examples:
+                      with_address:
+                        value: Gate open at specified address
+                        summary: Odpowiedź gdy podany jest adres
+                      without_address:
+                        value: Gate open
+                        summary: Odpowiedź gdy adres nie jest podany
+        '400':
+          description: Error. wrong operation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Status odpowiedzi
+                    example: error
+                  message:
+                    type: string
+                    description: Wiadomość o błędzie
+                    example: Nieprawidłowa operacja
+
+  /api/order/videoSwitchWA:
+    get:
+      summary: Zmień wideo
+      description: Wykonuje operację zmiany wideo na podany adres (`Video switch with address`).
+      tags:
+        - API
+      parameters:
+        - in: query
+          name: address
+          required: true
+          schema:
+            type: string
+          description: Adres urządzenia wymagany dla operacji `Video switch with address`.
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+          description: "Token <token-do-api>"
+      responses:
+        '200':
+          description: Success. Operacja została wykonana.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Status odpowiedzi
+                    example: OK
+                  info:
+                    type: string
+                    description: Informacja o wyniku operacji
+                    example: Video switched
+        '400':
+          description: Error. wrong operation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Status odpowiedzi
+                    example: error
+                  message:
+                    type: string
+                    description: Wiadomość o błędzie
+                    example: Nieprawidłowa operacja
+
+  # /network/updated:
+  #   post:
+  #     summary: Zaktualizuj urządzenia w bazie danych
+  #     description: Aktualizuje listę urządzeń w bazie danych na podstawie przesłanych informacji. Wysyła również komunikat MQTT o dokonanej aktualizacji.
+  #     tags:
+  #       - network
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             type: array
+  #             items:
+  #               type: object
+  #               properties:
+  #                 devId:
+  #                   type: string
+  #                   description: Unikalny identyfikator urządzenia
+  #                   example: "12345"
+  #                 name:
+  #                   type: string
+  #                   description: Nazwa urządzenia
+  #                   example: "Device 1"
+  #                 model:
+  #                   type: integer
+  #                   description: Model urządzenia
+  #                   example: 101
+  #                 fwVersion:
+  #                   type: string
+  #                   description: Wersja oprogramowania urządzenia
+  #                   example: "1.0.3"
+  #                 hwVersion:
+  #                   type: integer
+  #                   description: Wersja sprzętowa urządzenia
+  #                   example: 2
+  #                 ip:
+  #                   type: string
+  #                   description: Adres IP urządzenia
+  #                   example: "192.168.1.100"
+  #             required:
+  #               - devId
+  #               - name
+  #               - model
+  #               - fwVersion
+  #               - hwVersion
+  #               - ip
+  #     responses:
+  #       '200':
+  #         description: Sukces. Lista urządzeń została zaktualizowana.
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: object
+  #               properties:
+  #                 status:
+  #                   type: string
+  #                   description: Status odpowiedzi
+  #                   example: success
+  #                 message:
+  #                   type: string
+  #                   description: Wiadomość odpowiedzi
+  #                   example: Lista urządzeń została zaktualizowana
+  #       '400':
+  #         description: Błąd. Nieprawidłowe dane wejściowe.
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: object
+  #               properties:
+  #                 status:
+  #                   type: string
+  #                   description: Status odpowiedzi
+  #                   example: error
+  #                 message:
+  #                   type: string
+  #                   description: Wiadomość o błędzie
+  #                   example: Nieprawidłowe dane wejściowe
+
+  /network/devices:
+    get:
+      summary: Zwróć urządzenia zapisane w bazie danych
+      description: Pobiera listę urządzeń zapisanych w bazie danych i zwraca je w formacie JSON.
+      tags:
+        - network
+      responses:
+        '200':
+          description: Sukces. Lista urządzeń została pobrana.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  devices:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        devId:
+                          type: string
+                          description: Unikalny identyfikator urządzenia
+                          example: "12345"
+                        name:
+                          type: string
+                          description: Nazwa urządzenia
+                          example: "Device 1"
+                        model:
+                          type: integer
+                          description: Model urządzenia
+                          example: 101
+                        fwVersion:
+                          type: string
+                          description: Wersja oprogramowania urządzenia
+                          example: "1.0.3"
+                        hwVersion:
+                          type: integer
+                          description: Wersja sprzętowa urządzenia
+                          example: 2
+                        ip:
+                          type: string
+                          description: Adres IP urządzenia
+                          example: "192.168.1.100"
+
+  /network/scan:
+    get:
+      summary: Skanuj sieć w poszukiwaniu urządzeń
+      description: Skanuje sieć w poszukiwaniu nowych urządzeń i zwraca zaktualizowaną listę urządzeń.
+      tags:
+        - network
+      responses:
+        '200':
+          description: Sukces. Zaktualizowana lista urządzeń.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Wiadomość informująca o statusie odpowiedzi
+                    example: new device list
+                  devices:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        devId:
+                          type: string
+                          description: Unikalny identyfikator urządzenia
+                          example: "12345"
+                        name:
+                          type: string
+                          description: Nazwa urządzenia
+                          example: "Device 1"
+                        model:
+                          type: integer
+                          description: Model urządzenia
+                          example: 101
+                        fwVersion:
+                          type: string
+                          description: Wersja oprogramowania urządzenia
+                          example: "1.0.3"
+                        hwVersion:
+                          type: integer
+                          description: Wersja sprzętowa urządzenia
+                          example: 2
+                        ip:
+                          type: string
+                          description: Adres IP urządzenia
+                          example: "192.168.1.100"

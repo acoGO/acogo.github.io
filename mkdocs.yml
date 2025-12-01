@@ -1,0 +1,65 @@
+site_name: Przewodnik dla integratora systemu acoGO!
+site_url: https://acogo.github.io
+site_dir: public
+nav:
+  - Strona główna: index.md
+  - Bramka acoGO!:
+    - Jak zacząć: bramka-acogo/bramka-acogo.md
+    - Generowanie tokena: bramka-acogo/generowanie-tokena.md
+    - API: bramka-acogo/api.md
+    - API Swagger: bramka-acogo/swagger.md
+    - Webhooki: bramka-acogo/webhooki.md
+    - Rejestracja webhooka: bramka-acogo/rejestracja-webhooka.md
+  - Portal acoGO!:
+    - Jak zacząć: portal-acogo/index.md
+    - API: portal-acogo/api.md
+plugins:
+  - search
+  - swagger-ui-tag
+theme:
+  name: material
+  favicon: img/favicon.png
+  icon:
+    logo: octicons/terminal-16
+  palette:
+  # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      primary: custom
+      accent: custom
+      scheme: default 
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      primary: custom
+      accent: custom
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+        
+  features:
+    - content.tabs.link
+    
+copyright: Copyright &copy; 2025 ACO
+extra_css:
+  - stylesheets/extra.css
+markdown_extensions:
+  - attr_list
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - tables
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true

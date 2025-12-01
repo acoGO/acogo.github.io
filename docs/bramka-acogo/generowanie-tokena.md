@@ -1,0 +1,1 @@
+# Generowanie tokena API dla bramki acoGO!

@@ -1,0 +1,681 @@
+openapi: 3.0.3
+info:
+  title: acoGO! API
+  description: API ekosystemu acoGO!
+  version: "2.0"
+servers:
+  - url: https://api.aco.com.pl/public/v2/
+paths:
+
+  /devices:
+    get:
+      tags: [Devices]
+      summary: Pobierz listę wszystkich urządzeń użytkownika.
+      description: Zwraca listę wszystkich urządzeń przypisanych do użytkownika.
+      security:
+        - BearerToken: []
+      responses:
+        200:
+          description: OK – lista urządzeń użytkownika
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DeviceIntegration'
+        400:
+          description: Niepoprawny email w tokenie
+          $ref: '#/components/responses/BadRequest' 
+        401:
+          description: Brak autoryzacji lub niepoprawny email w tokenie
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          description: Konto użytkownika niepotwierdzone
+          $ref: '#/components/responses/Forbidden'
+        500:
+          description: Wystąpił błąd serwera
+          $ref: '#/components/responses/InternalServerError'
+
+
+  /devices/io/{deviceId}:
+    get:
+      tags: [Devices]
+      summary: Pobierz szczegóły urządzenia acoGO! I/O
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          description: Unikalny identyfikator urządzenia acoGO! I/O
+          schema:
+            type: string
+      security:
+        - BearerToken: []
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IpioSummary'
+        400:
+          description: Niepoprawny email w tokenie
+          $ref: '#/components/responses/BadRequest' 
+        401:
+          description: Brak autoryzacji lub niepoprawny email w tokenie
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          description: Konto użytkownika niepotwierdzone
+          $ref: '#/components/responses/Forbidden'
+        404:
+          description: Nie znaleziono urządzenia
+          $ref: '#/components/responses/NotFound'
+        408:
+          $ref: '#/components/responses/IpioOffline'
+        500:
+          description: Wystąpił błąd serwera
+          $ref: '#/components/responses/InternalServerError'
+
+  /devices/ble/{deviceId}:
+      get:
+        tags: [Devices]
+        summary: Pobierz szczegóły urządzenia acoGO! BLE
+        parameters:
+          - name: deviceId
+            in: path
+            required: true
+            description: Unikalny identyfikator urządzenia acoGO! BLE
+            schema:
+              type: string
+        security:
+          - BearerToken: []
+        responses:
+          200:
+            description: OK
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/OwnedBle'
+          400:
+            description: Niepoprawny email w tokenie
+            $ref: '#/components/responses/BadRequest' 
+          401:
+            description: Brak autoryzacji lub niepoprawny email w tokenie
+            $ref: '#/components/responses/Unauthorized'
+          403:
+            description: Konto użytkownika niepotwierdzone
+            $ref: '#/components/responses/Forbidden'
+          404:
+            description: Nie znaleziono urządzenia
+            $ref: '#/components/responses/NotFound'
+          500:
+            description: Wystąpił błąd serwera
+            $ref: '#/components/responses/InternalServerError'
+
+  /devices/gates/{deviceId}:
+    get:
+      tags: [Devices]
+      summary: Pobierz szczegóły urządzenia typu bramka
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          description: Unikalny identyfikator bramki
+          schema:
+            type: string
+      security:
+        - BearerToken: []
+      responses:
+          200:
+            description: OK
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/DeviceSummary'
+          400:
+            description: Niepoprawny email w tokenie
+            $ref: '#/components/responses/BadRequest' 
+          401:
+            description: Brak autoryzacji lub niepoprawny email w tokenie
+            $ref: '#/components/responses/Unauthorized'
+          403:
+            description: Konto użytkownika niepotwierdzone
+            $ref: '#/components/responses/Forbidden'
+          404:
+            description: Nie znaleziono urządzenia
+            $ref: '#/components/responses/NotFound'
+          408:
+            $ref: '#/components/responses/GateOffline'
+          500:
+            description: Wystąpił błąd serwera
+            $ref: '#/components/responses/InternalServerError'
+
+  /devices/ivoo/{deviceId}:
+    get:
+      tags: [Devices]
+      summary: Pobierz szczegóły urządzenia Ivoo
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          description: Unikalny identyfikator urządzenia Ivoo
+          schema:
+            type: string
+      security:
+        - BearerToken: []
+      responses:
+          200:
+            description: OK
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/IvooSummary'
+          400:
+            description: Niepoprawny email w tokenie
+            $ref: '#/components/responses/BadRequest'
+          401:
+            description: Brak autoryzacji lub niepoprawny email w tokenie
+            $ref: '#/components/responses/Unauthorized'
+          403:
+            description: Konto użytkownika niepotwierdzone
+            $ref: '#/components/responses/Forbidden'
+          404:
+            description: Nie znaleziono urządzenia
+            $ref: '#/components/responses/NotFound'
+          408:
+            $ref: '#/components/responses/IvooOffline'
+          500:
+            description: Wystąpił błąd serwera
+            $ref: '#/components/responses/InternalServerError'
+
+  /io/{deviceId}/state:
+    get:
+      tags: [IO]
+      summary: Pobierz stany wejść i wyjść urządzenia acoGO! I/O
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          description: Unikalny identyfikator urządzenia I/O
+          schema:
+            type: string
+      security:
+        - BearerToken: []
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IpioState'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+        408:
+          $ref: '#/components/responses/IpioOffline'
+        503:
+          $ref: '#/components/responses/InternalServerError'
+
+  /devices/{deviceId}/orders/ez-open:
+    post:
+      tags: [Devices]
+      summary: Otwórz elektrozaczep (ez-open)
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          description: Unikalny identyfikator urzadzenia (bramki lub Ivoo)
+          schema:
+            type: string
+      security:
+        - BearerToken: []
+      responses:
+        200:
+          description: Polecenie zostało wykonane pomyślnie
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        408:
+          $ref: '#/components/responses/GateOffline'
+        503:
+          $ref: '#/components/responses/GateOffline'
+
+  /devices/{deviceId}/orders/f2-open:
+    post:
+      tags: [Devices]
+      summary: Wywołaj funkcję dodatkową (f2-open)
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          description: Unikalny identyfikator urzadzenia (bramki lub Ivoo)
+          schema:
+            type: string
+      security:
+        - BearerToken: []
+      responses:
+        200:
+          description: Polecenie zostało wykonane pomyślnie
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        408:
+          $ref: '#/components/responses/GateOffline'
+        503:
+          $ref: '#/components/responses/GateOffline'
+
+  /io/{deviceId}/out/{outNumber}:
+    post:
+      tags: [IO]
+      summary: Ustaw stan wyjścia acoGO! I/O
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          description: Unikalny identyfikator acoGO! I/O
+          schema:
+            type: string
+        - name: outNumber
+          in: path
+          required: true
+          description: Numer wyścia acoGO! I/O, które wykona rozkaz
+          schema:
+            type: integer
+      security:
+        - BearerToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IpioIntegrationOutParam'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Out state successfully updated."
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        408:
+          $ref: '#/components/responses/IpioOffline'
+        503:
+          $ref: '#/components/responses/InternalServerError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+
+  /ble/{deviceId}/open:
+    post:
+      tags: [BLE]
+      summary: Otwórz acoGO! BLE
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          description: Unikalny identyfikator acoGO! BLE
+          schema:
+            type: string
+      security:
+        - BearerToken: []
+      responses:
+        200:
+          description: OK
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        408:
+          $ref: '#/components/responses/BleOffline'
+        503:
+          $ref: '#/components/responses/InternalServerError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  securitySchemes:
+    BearerToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    DeviceSummary:
+      type: object
+      properties:
+        devId:
+          type: string
+          example: "aa:bb:cc:dd"
+        swVersion:
+          type: string
+          example: "1.7.5"
+        fwVersion:
+          type: string
+          example: "1.0.6"
+        hwVersion:
+          type: integer
+          example: 0
+        model:
+          type: string
+          enum: [acoGO! P, acoGO! Pro, acoGO! I/O, acoGO! BT, Ivoo]
+          example: acoGO! P
+        name:
+          type: string
+          example: "Bramka acoGO!"
+        isPaid:
+          type: boolean
+
+    IntegrationTokenResponse:
+      type: object
+      properties:
+        userEmail:
+          type: string
+          description: Email użytkownika
+        integrationToken:
+          type: string
+          description: Token integracyjny (integrationAccess)
+        expiresAt:
+          type: string
+          format: date-time
+          description: Data wygaśnięcia tokena
+
+    DeviceIntegration:
+      type: object
+      properties:
+        devId:
+          type: string
+          example: "aa:bb:cc:dd:ee:ff"
+        model:
+          type: string
+          example: "acoGO! P"
+        name:
+          type: string
+          example: "Bramka acoGO!"
+        isPaid:
+          type: boolean
+          example: true
+
+    IpioSummary:
+      type: object
+      properties:
+        devId:
+          type: string
+          example: "00:1A:2B:3C:4D:5E"
+        fwVersion:
+          type: string
+          example: "1.1.2"
+        hwVersion:
+          type: integer
+          example: 0
+        model:
+          type: string
+          example: "acoGO! I/O"
+        name:
+          type: string
+          example: "acoGO! I/O"
+        out1Name:
+          type: string
+        out1Time:
+          type: integer
+        out2Name:
+          type: string
+        out2Time:
+          type: integer
+        out3Name:
+          type: string
+        out3Time:
+          type: integer
+        out4Name:
+          type: string
+        out4Time:
+          type: integer
+        in1Name:
+          type: string
+        in2Name:
+          type: string
+        in3Name:
+          type: string
+        in4Name:
+          type: string
+
+    OwnedBle:
+      type: object
+      properties:
+        devId:
+          type: string
+          description: ID modułu
+          example: "00:1A:2B:3C:4D:5E"
+        fwVersion:
+          type: string
+          example: "1.1.2"
+        hwVersion:
+          type: integer
+          minimum: 0
+          maximum: 0
+          example: 0
+        model:
+          type: string
+          example: "acoGO! I/O"
+        name:
+          type: string
+          example: "acoGO! I/O"
+
+    IvooSummary:
+      type: object
+      properties:
+        devId:
+          type: string
+          example: "aa:bb:cc:dd"
+        swVersion:
+          type: string
+          example: "1.7.5"
+        fwVersion:
+          type: string
+          example: "1.0.6"
+        hwVersion:
+          type: integer
+          example: 0
+        model:
+          type: string
+          enum: [acoGO! P, acoGO! Pro, acoGO! I/O, acoGO! BT, Ivoo]
+          example: acoGO! P
+        name:
+          type: string
+          example: "Bramka acoGO!"
+        isPaid:
+          type: boolean
+
+    IpioState:
+      type: object
+      properties:
+        inputs:
+          type: object
+          properties:
+            in1: { type: boolean }
+            in2: { type: boolean }
+            in3: { type: boolean }
+            in4: { type: boolean }
+        outputs:
+          type: object
+          properties:
+            out1: { type: boolean }
+            out2: { type: boolean }
+            out3: { type: boolean }
+            out4: { type: boolean }
+
+    IpioOrderInParam:
+      type: object
+      properties:
+        inNumber:
+          type: integer
+          example: 2
+          description: numer wejścia, które wykona rozkaz
+        state:
+          type: boolean
+          example: false
+          description: wartość rozkazu
+
+    IpioIntegrationOutParam:
+      type: object
+      required:
+        - state
+      properties:
+        state:
+          type: boolean
+          description: Nowy stan wyjścia (true = włączone, false = wyłączone).
+          example: true
+
+    IpioOrderOutParam:
+      type: object
+      properties:
+        outNumber:
+          type: integer
+          example: 2
+          description: numer wyścia, które wykona rozkaz
+        state:
+          type: boolean
+          example: false
+          description: wartość rozkazu
+
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Unauthorized. Please provide a valid token."
+    BadRequest:
+      description: Invalid input
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Invalid token"
+    Forbidden:
+      description: User account email not confirmed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "User account email is not confirmed."
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Device with the specified ID was not found."
+              
+    InternalServerError:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Server error occurred."
+
+    GateOffline:
+      description: Gate is offline
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Gate is offline.
+                
+    IvooOffline:
+      description: Ivoo is offline
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Ivoo is offline.
+
+    IpioOffline:
+      description: IO is offline
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: acoGO I/O is offline.
+
+    BleOffline:
+      description: BLE is offline
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: acoGO! BL is offline.

@@ -1,0 +1,22 @@
+:root {
+    --md-primary-fg-color: #0a3741;
+    --md-primary-bg-color: #b4dc46;
+}
+
+.md-grid {
+    max-width: 95%;
+}
+
+.md-typeset table:not([class]) td{
+    border-right: .05rem solid var(--md-typeset-table-color);
+}
+
+[data-md-color-scheme="default"] {
+    --md-typeset-a-color: #0a3741;
+}
+
+[data-md-color-scheme="slate"] {
+    --md-typeset-a-color: #fff;
+}
+
+

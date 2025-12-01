@@ -1,0 +1,1 @@
+# Rejestracja webhooka w bramce acoGO!
