@@ -69,8 +69,6 @@ paths:
         404:
           description: Nie znaleziono urządzenia
           $ref: '#/components/responses/NotFound'
-        408:
-          $ref: '#/components/responses/IpioOffline'
         500:
           description: Wystąpił błąd serwera
           $ref: '#/components/responses/InternalServerError'
@@ -143,8 +141,6 @@ paths:
           404:
             description: Nie znaleziono urządzenia
             $ref: '#/components/responses/NotFound'
-          408:
-            $ref: '#/components/responses/GateOffline'
           500:
             description: Wystąpił błąd serwera
             $ref: '#/components/responses/InternalServerError'
@@ -181,8 +177,6 @@ paths:
           404:
             description: Nie znaleziono urządzenia
             $ref: '#/components/responses/NotFound'
-          408:
-            $ref: '#/components/responses/IvooOffline'
           500:
             description: Wystąpił błąd serwera
             $ref: '#/components/responses/InternalServerError'
@@ -410,6 +404,9 @@ components:
           example: "Bramka acoGO!"
         isPaid:
           type: boolean
+        isOnline:
+          type: string
+          example: true
 
     IntegrationTokenResponse:
       type: object
@@ -439,6 +436,9 @@ components:
           example: "Bramka acoGO!"
         isPaid:
           type: boolean
+          example: true
+        isOnline:
+          type: string
           example: true
 
     IpioSummary:
@@ -530,6 +530,9 @@ components:
           example: "Bramka acoGO!"
         isPaid:
           type: boolean
+        isOnline:
+          type: string
+          example: true
 
     IpioState:
       type: object
@@ -646,6 +649,9 @@ components:
               error:
                 type: string
                 example: Gate is offline.
+              isOnline:
+                type: boolean
+                example: false
                 
     IvooOffline:
       description: Ivoo is offline
@@ -657,6 +663,9 @@ components:
               error:
                 type: string
                 example: Ivoo is offline.
+              isOnline:
+                type: boolean
+                example: false
 
     IpioOffline:
       description: IO is offline
@@ -668,6 +677,9 @@ components:
               error:
                 type: string
                 example: acoGO I/O is offline.
+              isOnline:
+                type: boolean
+                example: false
 
     BleOffline:
       description: BLE is offline
@@ -679,3 +691,6 @@ components:
               error:
                 type: string
                 example: acoGO! BL is offline.
+              isOnline:
+                type: boolean
+                example: false
