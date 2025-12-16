@@ -331,7 +331,7 @@ paths:
         401:
           $ref: '#/components/responses/Unauthorized'
         403:
-          $ref: '#/components/responses/Forbidden'
+          $ref: '#/components/responses/NoPermissions'
         404:
           $ref: '#/components/responses/NotFound'
         408:
@@ -617,6 +617,16 @@ components:
               error:
                 type: string
                 example: "User account email is not confirmed."
+    NoPermissions:
+      description: User has no permission for this output
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "User has no permissions"
     NotFound:
       description: Resource not found
       content:
