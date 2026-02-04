@@ -12,7 +12,10 @@ nav:
     - Rejestracja webhooka: bramka-acogo/rejestracja-webhooka.md
   - Portal acoGO!:
     - Jak zacząć: portal-acogo/index.md
-    - API: portal-acogo/api.md
+    - Generowanie tokena: portal-acogo/generowanie-tokena.md
+    - API Swagger: portal-acogo/swagger.md
+  - Integracje:
+    - Home Assistant: integracje/home-assistant.md
 plugins:
   - search
   - swagger-ui-tag
