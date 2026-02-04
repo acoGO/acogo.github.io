@@ -11,11 +11,11 @@ Aby wygenerować nowy token API, wykonaj poniższe kroki:
 3. Zaloguj się do panelu administratora swoimi danymi dostępu. <br>
 ![Logowanie do bramki](../img/Bramka_API/1_logowanie.png){ width=70% }
 4. Przejdź do sekcji „Sieć” w menu głównym. <br>
-![Logowanie do bramki](../img/Bramka_API/2_start.png){ width=70% }
+![Strona startowa bramki](../img/Bramka_API/2_start.png){ width=70% }
 5. W części oznaczonej numerem 4 („tokeny API”) znajdziesz opcje zarządzania tokenami. <br>
-![Logowanie do bramki](../img/Bramka_API/4_tokeny_API_puste.png){ width=70% }
+![Tokeny API puste](../img/Bramka_API/4_tokeny_API_puste.png){ width=70% }
 6. W tym miejscu możesz:
    <br>- Wygenerować nowy token, nadać mu własną nazwę i skopiować go do dalszego użycia w aplikacji,
    <br>- Wyświetlić listę już wygenerowanych tokenów,
    <br>- Usuwać istniejące tokeny, jeśli dany dostęp nie jest już potrzebny.
- ![Logowanie do bramki](../img/Bramka_API/5_wygenerowany_token.png){ width=70% }
+ ![Tokeny API](../img/Bramka_API/5_wygenerowany_token.png){ width=70% }

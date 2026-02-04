@@ -11,12 +11,12 @@ Aby dodać nowego webhooka w bramce acoGO!, wykonaj następujące kroki:
 3. Zaloguj się przy użyciu swoich danych administratora. <br>
 ![Logowanie do bramki](../img/Bramka_API/1_logowanie.png){ width=70% }
 4. Przejdź do zakładki „Sieć” w menu głównym. <br>
-![Logowanie do bramki](../img/Bramka_API/2_start.png){ width=70% }
+![Strona startowa bramki](../img/Bramka_API/2_start.png){ width=70% }
 5. W części oznaczonej numerem 4 znajdziesz ustawienia tabeli webhooków. <br>
-![Logowanie do bramki](../img/Bramka_API/4_tokeny_API_puste.png){ width=70% }
+![Tokeny API puste](../img/Bramka_API/4_tokeny_API_puste.png){ width=70% }
 6. W tym miejscu możesz:
    <br>- Dodać nowy URL webhooka, który ma odbierać powiadomienia,
    <br>- Wybrać, czy webhook ma być aktywny,
    <br>- Określić, na jakie zdarzenia ma reagować dany webhook,
    <br>- Usunąć niepotrzebne lub nieaktywne webhooki.
-![Logowanie do bramki](../img/Bramka_API/6_webhook.png){ width=70% }
+![Dodawanie webhooka](../img/Bramka_API/6_webhook.png){ width=70% }
