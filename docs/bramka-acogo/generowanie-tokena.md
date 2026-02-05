@@ -15,7 +15,7 @@ Aby wygenerować nowy token API, wykonaj poniższe kroki:
 5. W części oznaczonej numerem 4 („tokeny API”) znajdziesz opcje zarządzania tokenami. <br>
 ![Tokeny API puste](../img/Bramka_API/4_tokeny_API_puste.png){ width=70% }
 6. W tym miejscu możesz:
-   <br>- Wygenerować nowy token, nadać mu własną nazwę i skopiować go do dalszego użycia w aplikacji,
-   <br>- Wyświetlić listę już wygenerowanych tokenów,
-   <br>- Usuwać istniejące tokeny, jeśli dany dostęp nie jest już potrzebny.
+    - Wygenerować nowy token, nadać mu własną nazwę i skopiować go do dalszego użycia w aplikacji,
+    - Wyświetlić listę już wygenerowanych tokenów,
+    - Usuwać istniejące tokeny, jeśli dany dostęp nie jest już potrzebny.
  ![Tokeny API](../img/Bramka_API/5_wygenerowany_token.png){ width=70% }
