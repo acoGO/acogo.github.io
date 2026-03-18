@@ -30,9 +30,11 @@ Komponent pozwala na:
 3. Pobierz acoGO! i zrestartuj Home Assistant.<br>
 ![pobierz acoGO!](../img/Instrukcja_HA/3.png){ width=70% }
 4. Dodaj integrację "acoGo!" w Ustawienia -> Urządzenia oraz usługi -> Integracje.
+![przejście do ustawień](../img/Instrukcja_HA/7.png){ width=70% }
 5. Kliknij **Dodaj integrację** i wybierz acoGO!<br>
 ![dodawanie integracji](../img/Instrukcja_HA/9.png){ width=70% }
 6. Podaj token do systemu acoGo! ([generowanie tokena](../portal-acogo/generowanie-tokena.md))
+![wpisanie tokena](../img/Instrukcja_HA/10.png){ width=70% }
 7. Potwierdź konfigurację<br>
 ![dodawanie integracji](../img/Instrukcja_HA/16.png){ width=70% }
 
